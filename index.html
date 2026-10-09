@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07130f">
+<title>FOOTBALLVERSE — Football Mini Games</title>
+<style>
+:root{--bg:#07130f;--panel:#0d2019;--panel2:#122b22;--line:#214737;--green:#b8ff45;--green2:#7ddc24;--text:#f1f7f2;--muted:#a2b9ab;--red:#ff7373;--gold:#ffd36a;--shadow:0 18px 60px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#204a2b 0,transparent 36%),radial-gradient(ellipse at -10% 40%,#102b21 0,transparent 34%),var(--bg);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}a{color:inherit}.wrap{width:min(1160px,calc(100% - 32px));margin:auto}
+.topbar{position:sticky;top:0;z-index:10;background:#07130fe8;backdrop-filter:blur(14px);border-bottom:1px solid #214737}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:.08em}.brand-mark{display:grid;place-items:center;width:38px;height:38px;background:var(--green);color:#07130f;border-radius:12px;font-size:20px;box-shadow:0 0 25px #b8ff4530}.brand span:last-child{color:var(--green)}.nav-right{display:flex;gap:10px;align-items:center}.lang-btn,.ghost-btn{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:9px 13px;font-weight:750}.lang-btn:hover,.ghost-btn:hover{border-color:var(--green)}.profile-chip{display:flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:13px}.avatar{width:27px;height:27px;border-radius:9px;background:var(--green);color:#102015;display:grid;place-items:center;font-weight:900}
+.hero{padding:54px 0 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #375c36;background:#14281a;padding:6px 10px;border-radius:99px;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-.06em;margin:20px 0 18px;font-weight:1000}h1 em{font-style:normal;color:var(--green)}.hero p{max-width:620px;color:var(--muted);font-size:17px;margin:0 0 24px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.primary-btn{border:0;background:var(--green);color:#102015;font-weight:950;padding:13px 19px;border-radius:13px;box-shadow:0 8px 30px #b8ff4520}.primary-btn:hover{background:#d0ff8b;transform:translateY(-1px)}.secondary-btn{border:1px solid var(--line);background:#0d2019;color:var(--text);padding:13px 18px;border-radius:13px;font-weight:850}.stadium{min-height:290px;position:relative;overflow:hidden;border:1px solid #31523c;border-radius:26px;background:linear-gradient(150deg,#163925,#07140e 68%);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}.stadium:before{content:"";position:absolute;inset:18px;border:1px solid #8bd75b40;border-radius:15px;background:linear-gradient(90deg,transparent 49.7%,#b8ff4530 49.7%,#b8ff4530 50.3%,transparent 50.3%),linear-gradient(0deg,transparent 49.7%,#b8ff4520 49.7%,#b8ff4520 50.3%,transparent 50.3%)}.stadium:after{content:"";position:absolute;width:112px;height:112px;border:1px solid #b8ff4544;border-radius:50%}.ball{position:relative;z-index:1;font-size:104px;filter:drop-shadow(0 14px 20px #0008);animation:float 4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-12px) rotate(8deg)}}.stadium-tag{position:absolute;z-index:2;bottom:24px;left:25px;right:25px;display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#d9efdc}.stadium-tag strong{color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:10px 0 38px}.stat{padding:16px 18px;background:#0d2019bd;border:1px solid var(--line);border-radius:17px}.stat b{display:block;font-size:26px;line-height:1.2;letter-spacing:-.04em}.stat span{font-size:12px;color:var(--muted);font-weight:700}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:30px 0 18px}.section-head h2{font-size:28px;letter-spacing:-.04em;margin:0}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.filter{padding:8px 13px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:transparent;font-size:13px;font-weight:800}.filter.active,.filter:hover{background:var(--green);border-color:var(--green);color:#0a1b10}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.game-card{position:relative;text-align:left;padding:19px;border:1px solid var(--line);border-radius:19px;background:linear-gradient(145deg,#11291f,#0b1b14);color:var(--text);min-height:190px;display:flex;flex-direction:column;transition:.18s}.game-card:hover{transform:translateY(-4px);border-color:#8ccf51;box-shadow:0 12px 35px #0003}.game-top{display:flex;align-items:center;justify-content:space-between}.game-icon{display:grid;place-items:center;width:47px;height:47px;border-radius:14px;background:#203c29;font-size:24px}.tag{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--green);border:1px solid #385e35;border-radius:99px;padding:4px 7px;font-weight:900}.game-card h3{margin:15px 0 4px;font-size:18px;letter-spacing:-.02em}.game-card p{margin:0;color:var(--muted);font-size:13px}.playline{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;color:var(--green);font-size:12px;font-weight:900}.playline span:last-child{font-size:18px}
+.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:48px 0}.panel{border:1px solid var(--line);background:#0d2019c9;border-radius:21px;padding:22px}.panel h2{font-size:22px;margin:0 0 4px;letter-spacing:-.03em}.panel .sub{font-size:13px;color:var(--muted);margin:0 0 18px}.name-row{display:flex;gap:8px}.name-row input{min-width:0;flex:1;background:#07130f;border:1px solid var(--line);border-radius:11px;padding:11px 12px;color:var(--text);outline:none}.name-row input:focus{border-color:var(--green)}.score-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #234332}.rank{width:30px;height:30px;border-radius:9px;background:#183526;display:grid;place-items:center;font-weight:900;color:var(--green)}.score-row .who{flex:1;font-weight:800}.score-row small{display:block;color:var(--muted);font-size:11px}.score{font-weight:950;color:var(--green)}.empty{color:var(--muted);font-size:13px;padding:16px 0}.notice{font-size:12px;color:var(--muted);padding:11px 12px;border:1px dashed #31523c;border-radius:12px;margin-top:13px}
+footer{border-top:1px solid var(--line);padding:25px 0 36px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.footer-brand{font-weight:950;letter-spacing:.08em;color:var(--text)}
+.modal{position:fixed;inset:0;z-index:30;background:#020805d9;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}.game-window{width:min(700px,100%);max-height:min(88vh,850px);overflow:auto;border:1px solid #386047;border-radius:24px;background:linear-gradient(145deg,#10251a,#08150f);box-shadow:0 30px 100px #0009}.modal-head{position:sticky;top:0;background:#0d2019f2;backdrop-filter:blur(12px);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);z-index:2}.modal-title{display:flex;align-items:center;gap:12px}.modal-title .game-icon{width:40px;height:40px}.modal-title h2{font-size:18px;margin:0}.close{border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--text);width:37px;height:37px;font-size:22px}.game-body{padding:24px}.game-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:13px}.progress{height:6px;background:#1a3325;border-radius:99px;overflow:hidden;margin-bottom:23px}.progress span{display:block;height:100%;background:var(--green);width:0;transition:width .2s}.question{font-size:clamp(22px,4vw,31px);line-height:1.2;letter-spacing:-.04em;margin:0 0 20px}.question-hint{color:var(--muted);font-size:13px;margin-top:-10px;margin-bottom:18px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answer{padding:14px 15px;text-align:left;background:#10251a;border:1px solid #2a4a35;border-radius:13px;color:var(--text);font-weight:800;min-height:56px}.answer:hover:not(:disabled){border-color:var(--green);background:#183525}.answer.correct{border-color:var(--green);background:#1c4024;color:#d6ffac}.answer.wrong{border-color:var(--red);background:#3a2020}.answer:disabled{cursor:default}.feedback{min-height:25px;font-weight:800;margin:15px 0 8px}.feedback.good{color:var(--green)}.feedback.bad{color:var(--red)}.game-controls{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:18px}.result{text-align:center;padding:18px 8px 8px}.result-emoji{font-size:62px}.result h2{font-size:32px;letter-spacing:-.04em;margin:8px 0}.result p{color:var(--muted)}.result-score{font-size:48px;font-weight:1000;color:var(--green);letter-spacing:-.06em}.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.stadium{min-height:220px}.games{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1160px)}.nav{height:62px}.brand{font-size:13px}.profile-chip{display:none}.hero{padding-top:34px}.hero p{font-size:15px}.games{grid-template-columns:1fr}.game-card{min-height:165px}.lower-grid{grid-template-columns:1fr;margin-top:30px}.section-head h2{font-size:24px}.answers{grid-template-columns:1fr}.game-body{padding:18px}.modal-head{padding:14px 16px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap nav">
+  <div class="brand"><span class="brand-mark">⚽</span><span>FOOTBALL<span>VERSE</span></span></div>
+  <div class="nav-right"><div class="profile-chip"><span class="avatar" id="avatar">P</span><span id="navName">Player mode</span></div><button class="lang-btn" id="langBtn" aria-label="Change language">EN / VI</button></div>
+</div></header>
+<main class="wrap">
+<section class="hero">
+ <div><div class="eyebrow"><span class="pulse"></span><span data-i18n="eyebrow">THE ULTIMATE FOOTBALL QUIZ ARENA</span></div>
+ <h1 data-i18n-html="heroTitle">YOUR FOOTBALL<br><em>UNIVERSE.</em></h1>
+ <p data-i18n="heroDesc">Kiểm tra kiến thức bóng đá, thử thách phản xạ và chinh phục 15 mini game từ những huyền thoại đến các sân cỏ hiện đại.</p>
+ <div class="hero-actions"><button class="primary-btn" id="startBtn" data-i18n="start">⚡ Chơi ngay</button><button class="secondary-btn" id="scrollGames" data-i18n="explore">Khám phá mini game ↓</button></div>
+ </div>
+ <div class="stadium"><div class="ball">⚽</div><div class="stadium-tag"><span>EST. <strong>2026</strong></span><span>KNOW THE GAME. <strong>OWN THE GAME.</strong></span></div></div>
+</section>
+<section class="stats">
+ <div class="stat"><b>15</b><span data-i18n="statGames">MINI GAMES</span></div>
+ <div class="stat"><b id="playedStat">0</b><span data-i18n="statPlayed">LƯỢT ĐÃ CHƠI</span></div>
+ <div class="stat"><b id="bestStat">0</b><span data-i18n="statBest">ĐIỂM CAO NHẤT</span></div>
+ <div class="stat"><b>VI / EN</b><span data-i18n="statLang">SONG NGỮ</span></div>
+</section>
+<section id="gamesSection">
+ <div class="section-head"><div><h2 data-i18n="gamesTitle">Chọn thử thách của bạn</h2><p data-i18n="gamesSub">Mỗi trận đấu là một cơ hội để ghi điểm.</p></div></div>
+ <div class="filter-row" id="filters">
+  <button class="filter active" data-filter="all" data-i18n="all">Tất cả · 15</button>
+  <button class="filter" data-filter="knowledge" data-i18n="knowledge">Kiến thức</button>
+  <button class="filter" data-filter="challenge" data-i18n="challenge">Thử thách</button>
+  <button class="filter" data-filter="clubs" data-i18n="clubs">CLB & giải đấu</button>
+ </div>
+ <div class="games" id="gamesGrid"></div>
+</section>
+<section class="lower-grid">
+ <div class="panel"><h2 data-i18n="leaderTitle">🏆 Bảng thành tích</h2><p class="sub" data-i18n="leaderSub">Điểm được lưu trên trình duyệt hiện tại.</p><div id="leaderboard"></div><div class="notice" data-i18n="leaderNote">Bản GitHub Pages dùng lưu trữ cục bộ (localStorage), không đồng bộ điểm giữa các thiết bị.</div></div>
+ <div class="panel"><h2 data-i18n="profileTitle">⚙️ Hồ sơ người chơi</h2><p class="sub" data-i18n="profileSub">Đặt tên để bảng thành tích hiển thị đúng phong cách của bạn.</p><label for="playerName" data-i18n="nameLabel">Tên người chơi</label><div class="name-row" style="margin-top:8px"><input id="playerName" maxlength="20" placeholder="Football fan"><button class="primary-btn" id="saveName" data-i18n="save">Lưu</button></div><div class="notice" data-i18n="privacy">Không cần đăng ký tài khoản. Dữ liệu điểm và tên chỉ lưu trên trình duyệt của em.</div></div>
+</section>
+</main>
+<footer class="wrap"><div><span class="footer-brand">FOOTBALLVERSE</span> <span data-i18n="footerText">— Học bóng đá bằng cách chơi.</span></div><div>Built for learning · GitHub Pages ready</div></footer>
+<div class="modal" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="modalGameTitle"><div class="game-window">
+ <div class="modal-head"><div class="modal-title"><div class="game-icon" id="modalIcon">⚽</div><div><h2 id="modalGameTitle">Mini game</h2><small id="modalCategory" style="color:var(--muted)">FOOTBALLVERSE</small></div></div><button class="close" id="closeModal" aria-label="Close">×</button></div>
+ <div class="game-body" id="gameBody"></div>
+</div></div>
+<script>
+const I18N={
+vi:{eyebrow:"ĐẤU TRƯỜNG TRẮC NGHIỆM BÓNG ĐÁ",heroTitle:'VŨ TRỤ BÓNG ĐÁ<br><em>CỦA BẠN.</em>',heroDesc:"Kiểm tra kiến thức bóng đá, thử thách phản xạ và chinh phục 15 mini game từ những huyền thoại đến các sân cỏ hiện đại.",start:"⚡ Chơi ngay",explore:"Khám phá mini game ↓",statGames:"MINI GAME",statPlayed:"LƯỢT ĐÃ CHƠI",statBest:"ĐIỂM CAO NHẤT",statLang:"SONG NGỮ",gamesTitle:"Chọn thử thách của bạn",gamesSub:"Mỗi trận đấu là một cơ hội để ghi điểm.",all:"Tất cả · 15",knowledge:"Kiến thức",challenge:"Thử thách",clubs:"CLB & giải đấu",leaderTitle:"🏆 Bảng thành tích",leaderSub:"Điểm được lưu trên trình duyệt hiện tại.",leaderNote:"Bản GitHub Pages dùng lưu trữ cục bộ (localStorage), không đồng bộ điểm giữa các thiết bị.",profileTitle:"⚙️ Hồ sơ người chơi",profileSub:"Đặt tên để bảng thành tích hiển thị đúng phong cách của bạn.",nameLabel:"Tên người chơi",save:"Lưu",privacy:"Không cần đăng ký tài khoản. Dữ liệu điểm và tên chỉ lưu trên trình duyệt của em.",footerText:"— Học bóng đá bằng cách chơi.",play:"CHƠI NGAY",points:"điểm",question:"CÂU",of:"/",next:"Câu tiếp theo →",finish:"Xem kết quả",correct:"Chính xác! +100 điểm",wrong:"Chưa đúng!",hint:"Chọn đáp án mà em cho là đúng.",time:"Thử thách kiến thức",result:"Kết quả trận đấu",again:"Chơi lại",back:"Về danh sách",nameSaved:"Đã lưu tên người chơi!",noScores:"Chưa có điểm nào. Chọn một mini game để bắt đầu nhé!",resultLine:"Em đã hoàn thành thử thách.",best:"Kỷ lục mới!",already:"Lưu ý: đây là bản demo chạy trên trình duyệt.",true:"Đúng",false:"Sai",penaltyHint:"Chọn góc sút để thực hiện quả penalty!",penaltyGoal:"VÀO!!! Em đánh bại thủ môn!",penaltySave:"Thủ môn cản phá! Thử lại nhé.",marketHint:"Chọn cầu thủ phù hợp với mô tả.",oddHint:"Chọn phương án KHÔNG cùng nhóm.",dailyHint:"Thử thách hôm nay: trả lời đúng càng nhiều càng tốt."},
+en:{eyebrow:"THE ULTIMATE FOOTBALL QUIZ ARENA",heroTitle:'YOUR FOOTBALL<br><em>UNIVERSE.</em>',heroDesc:"Test your football knowledge, challenge your instincts and conquer 15 mini games, from legendary players to modern stadiums.",start:"⚡ Play now",explore:"Explore mini games ↓",statGames:"MINI GAMES",statPlayed:"GAMES PLAYED",statBest:"PERSONAL BEST",statLang:"BILINGUAL",gamesTitle:"Choose your challenge",gamesSub:"Every match is a chance to score.",all:"All games · 15",knowledge:"Knowledge",challenge:"Challenges",clubs:"Clubs & leagues",leaderTitle:"🏆 Leaderboard",leaderSub:"Scores are saved in this browser.",leaderNote:"The GitHub Pages version uses localStorage; scores are not shared across devices.",profileTitle:"⚙️ Player profile",profileSub:"Choose a name for your local leaderboard.",nameLabel:"Player name",save:"Save",privacy:"No account required. Your name and scores stay in this browser.",footerText:"— Learn football by playing.",play:"PLAY NOW",points:"pts",question:"QUESTION",of:"/",next:"Next question →",finish:"View results",correct:"Correct! +100 points",wrong:"Not quite!",hint:"Choose the answer you think is correct.",time:"Knowledge challenge",result:"Match results",again:"Play again",back:"Back to games",nameSaved:"Player name saved!",noScores:"No scores yet. Choose a mini game to get started!",resultLine:"You completed the challenge.",best:"New personal best!",already:"Note: this is a browser-based demo.",true:"True",false:"False",penaltyHint:"Pick a corner to take the penalty!",penaltyGoal:"GOAL!!! You beat the keeper!",penaltySave:"Saved by the keeper! Try again.",marketHint:"Pick the player that matches the clue.",oddHint:"Pick the option that does NOT belong.",dailyHint:"Daily challenge: answer as many as you can."}
+};
+const games=[
+{id:"quiz",icon:"🧠",title:{vi:"Bậc thầy bóng đá",en:"Football Master"},desc:{vi:"Trắc nghiệm kiến thức tổng hợp.",en:"Mixed football trivia."},cat:"knowledge",tag:{vi:"Kiến thức",en:"Trivia"},kind:"quiz"},
+{id:"truefalse",icon:"⚖️",title:{vi:"Đúng hay sai",en:"True or False"},desc:{vi:"Phân biệt sự thật và hiểu lầm.",en:"Separate facts from myths."},cat:"knowledge",tag:{vi:"Nhanh trí",en:"Quick fire"},kind:"truefalse"},
+{id:"players",icon:"⭐",title:{vi:"Đoán cầu thủ",en:"Guess the Player"},desc:{vi:"Nhận diện ngôi sao qua gợi ý.",en:"Identify stars from clues."},cat:"knowledge",tag:{vi:"Huyền thoại",en:"Legends"},kind:"players"},
+{id:"clubs",icon:"🛡️",title:{vi:"Logo & câu lạc bộ",en:"Club Identity"},desc:{vi:"Đoán đội bóng từ biệt danh.",en:"Guess clubs from nicknames."},cat:"clubs",tag:{vi:"CLB",en:"Clubs"},kind:"clubs"},
+{id:"worldcup",icon:"🌍",title:{vi:"World Cup",en:"World Cup Challenge"},desc:{vi:"Những cột mốc của ngày hội bóng đá.",en:"Milestones from the global stage."},cat:"knowledge",tag:{vi:"Quốc tế",en:"International"},kind:"worldcup"},
+{id:"leagues",icon:"🏆",title:{vi:"Đấu trường giải đấu",en:"League Legends"},desc:{vi:"Các giải đấu và quốc gia.",en:"Leagues and football nations."},cat:"clubs",tag:{vi:"Giải đấu",en:"Leagues"},kind:"leagues"},
+{id:"stadiums",icon:"🏟️",title:{vi:"Thánh địa bóng đá",en:"Stadium Explorer"},desc:{vi:"Sân vận động nào thuộc về ai?",en:"Match stadiums to their clubs."},cat:"clubs",tag:{vi:"Sân vận động",en:"Stadiums"},kind:"stadiums"},
+{id:"records",icon:"📈",title:{vi:"Kỷ lục gia",en:"Record Breakers"},desc:{vi:"Những kỷ lục đáng nhớ của bóng đá.",en:"Memorable football records."},cat:"knowledge",tag:{vi:"Kỷ lục",en:"Records"},kind:"records"},
+{id:"countries",icon:"🌐",title:{vi:"Quốc gia bóng đá",en:"Football Nations"},desc:{vi:"Đội tuyển và màu cờ sắc áo.",en:"National teams and their history."},cat:"knowledge",tag:{vi:"Đội tuyển",en:"National teams"},kind:"countries"},
+{id:"penalty",icon:"🥅",title:{vi:"Vua sút penalty",en:"Penalty King"},desc:{vi:"Chọn góc sút và ghi bàn.",en:"Pick a corner and score."},cat:"challenge",tag:{vi:"Thử thách",en:"Challenge"},kind:"penalty"},
+{id:"odd",icon:"🔎",title:{vi:"Kẻ ngoại đạo",en:"Odd One Out"},desc:{vi:"Tìm đáp án không cùng nhóm.",en:"Find the one that doesn't fit."},cat:"challenge",tag:{vi:"Logic",en:"Logic"},kind:"odd"},
+{id:"speed",icon:"⚡",title:{vi:"Tia chớp sân cỏ",en:"Lightning Round"},desc:{vi:"10 câu hỏi, tốc độ là tất cả.",en:"10 questions. Speed matters."},cat:"challenge",tag:{vi:"Tốc độ",en:"Speed"},kind:"speed"},
+{id:"transfers",icon:"💸",title:{vi:"Chợ chuyển nhượng",en:"Transfer Market"},desc:{vi:"Ghép cầu thủ với câu lạc bộ.",en:"Match players to clubs."},cat:"clubs",tag:{vi:"Chuyển nhượng",en:"Transfers"},kind:"transfers"},
+{id:"tactics",icon:"📋",title:{vi:"Bộ não chiến thuật",en:"Tactical Brain"},desc:{vi:"Sơ đồ và vai trò trên sân.",en:"Formations and positions."},cat:"challenge",tag:{vi:"Chiến thuật",en:"Tactics"},kind:"tactics"},
+{id:"daily",icon:"🔥",title:{vi:"Thử thách mỗi ngày",en:"Daily Challenge"},desc:{vi:"Bộ câu hỏi đặc biệt cho fan cứng.",en:"A special set for true fans."},cat:"challenge",tag:{vi:"Hằng ngày",en:"Daily"},kind:"daily"}
+];
+const Q={
+quiz:[
+["Ai được biết đến với biệt danh “El Pulga”?","Lionel Messi","Cristiano Ronaldo","Neymar","Luis Suárez",0],
+["Một đội bóng có bao nhiêu cầu thủ trên sân khi trận đấu bắt đầu?","9","10","11","12",2],
+["Quả bóng vàng thường được trao để vinh danh điều gì?","Thủ môn cao nhất","Cầu thủ xuất sắc nhất","Đội có nhiều fan nhất","Sân vận động đẹp nhất",1],
+["Một trận đấu tiêu chuẩn có bao nhiêu hiệp chính?","1","2","3","4",1],
+["Hat-trick trong bóng đá nghĩa là gì?","3 bàn của một cầu thủ trong trận","3 thẻ vàng","3 quả phạt góc liên tiếp","3 trận thắng",0],
+["Vị trí nào thường được phép dùng tay trong khu vực cấm địa của đội mình?","Tiền đạo","Hậu vệ","Thủ môn","Tiền vệ",2],
+["VAR là viết tắt của gì?","Video Assistant Referee","Verified Athlete Ranking","Virtual Arena Replay","Visual Action Report",0],
+["Đội nào được gọi là “The Red Devils” ở Anh?","Arsenal","Manchester United","Liverpool","Chelsea",1],
+["Một trận đấu chính thức thông thường kéo dài bao nhiêu phút chưa tính bù giờ?","60","75","90","120",2],
+["Cú sút từ chấm phạt đền cách vạch cầu môn khoảng bao xa?","9 m","10 m","11 m","12 m",2]
+],
+truefalse:[
+["Brazil đã vô địch FIFA World Cup nam 5 lần tính đến hết năm 2022.","Đúng","Sai",0],
+["Một đội được phép có 12 cầu thủ trên sân cùng lúc trong trận đấu thông thường.","Đúng","Sai",1],
+["Thủ môn có thể dùng tay ở bất cứ đâu trên sân.","Đúng","Sai",1],
+["Champions League là giải đấu cấp câu lạc bộ của châu Âu.","Đúng","Sai",0],
+["Một trận đấu bóng đá tiêu chuẩn có hai hiệp chính.","Đúng","Sai",0],
+["Thẻ đỏ đồng nghĩa cầu thủ phải rời sân.","Đúng","Sai",0],
+["World Cup nam 2022 được tổ chức tại Qatar.","Đúng","Sai",0],
+["Quả phạt góc được thực hiện khi bóng đi hết đường biên ngang do cầu thủ tấn công chạm cuối.","Đúng","Sai",1]
+],
+players:[
+["Cầu thủ Argentina, vô địch World Cup 2022, nổi tiếng với số 10.","Lionel Messi","Ángel Di María","Julián Álvarez","Paulo Dybala",0],
+["Tiền đạo Bồ Đào Nha, từng khoác áo Manchester United, Real Madrid và Juventus.","Cristiano Ronaldo","Bruno Fernandes","João Félix","Bernardo Silva",0],
+["Tiền đạo người Pháp, vô địch World Cup 2018, nổi tiếng tốc độ.","Kylian Mbappé","Antoine Griezmann","Olivier Giroud","Karim Benzema",0],
+["Huyền thoại Brazil, thường được gọi là O Rei.","Pelé","Rivaldo","Kaká","Romário",0],
+["Tiền vệ Croatia giành Quả bóng vàng năm 2018.","Luka Modrić","Ivan Rakitić","Mateo Kovačić","Ivan Perišić",0],
+["Thủ môn Italy huyền thoại, vô địch World Cup 2006.","Gianluigi Buffon","Dino Zoff","Gianluigi Donnarumma","Walter Zenga",0]
+],
+clubs:[
+["Biệt danh “The Reds” thường gắn với CLB nào ở Liverpool?","Liverpool","Everton","Tottenham","West Ham",0],
+["“Los Blancos” là biệt danh nổi tiếng của đội nào?","Real Madrid","Barcelona","Atlético Madrid","Valencia",0],
+["“The Gunners” là biệt danh của CLB nào?","Arsenal","Chelsea","Newcastle","Leeds United",0],
+["“The Old Lady” (La Vecchia Signora) là biệt danh của đội nào?","Juventus","AC Milan","Inter Milan","Roma",0],
+["“The Bavarians” thường chỉ CLB nào?","Bayern Munich","Borussia Dortmund","RB Leipzig","Bayer Leverkusen",0],
+["CLB nào có sân nhà Anfield?","Liverpool","Manchester City","Arsenal","Chelsea",0]
+],
+worldcup:[
+["Đội tuyển nào vô địch World Cup nam 2022?","Argentina","Pháp","Croatia","Brazil",0],
+["World Cup nam 2018 được tổ chức ở đâu?","Nga","Brazil","Đức","Nam Phi",0],
+["Quốc gia nào đăng cai World Cup nam đầu tiên năm 1930?","Uruguay","Italy","Pháp","Argentina",0],
+["Đội tuyển nào vô địch World Cup nam 2014?","Đức","Argentina","Hà Lan","Brazil",0],
+["World Cup nữ đầu tiên diễn ra năm nào?","1991","1987","1995","2000",0],
+["World Cup nam 2026 được đồng đăng cai bởi những quốc gia nào?","Mỹ, Canada, Mexico","Tây Ban Nha, Bồ Đào Nha, Morocco","Brazil, Argentina, Chile","Anh, Scotland, Wales",0]
+],
+leagues:[
+["Premier League là giải đấu hàng đầu của quốc gia nào?","Anh","Tây Ban Nha","Italy","Đức",0],
+["Serie A là giải đấu hàng đầu của quốc gia nào?","Italy","Pháp","Bồ Đào Nha","Hà Lan",0],
+["Bundesliga thuộc quốc gia nào?","Đức","Áo","Thụy Sĩ","Bỉ",0],
+["Ligue 1 là giải đấu hàng đầu của quốc gia nào?","Pháp","Italy","Anh","Hy Lạp",0],
+["La Liga gắn liền với quốc gia nào?","Tây Ban Nha","Argentina","Brazil","Mexico",0],
+["AFC Asian Cup là giải đấu đội tuyển cấp châu lục nào?","Châu Á","Châu Phi","Châu Âu","Nam Mỹ",0]
+],
+stadiums:[
+["Sân Santiago Bernabéu là sân nhà của CLB nào?","Real Madrid","Barcelona","Sevilla","Valencia",0],
+["Camp Nou nổi tiếng gắn với CLB nào?","Barcelona","Real Madrid","Atlético Madrid","Espanyol",0],
+["Old Trafford là sân nhà của đội bóng nào?","Manchester United","Manchester City","Liverpool","Arsenal",0],
+["Anfield nằm ở thành phố nào?","Liverpool","London","Manchester","Birmingham",0],
+["Allianz Arena là sân nhà nổi tiếng của CLB nào?","Bayern Munich","Borussia Dortmund","Schalke 04","Hamburger SV",0],
+["Wembley là sân vận động nổi tiếng ở thành phố nào?","London","Paris","Rome","Berlin",0]
+],
+records:[
+["Cầu thủ nào được biết đến rộng rãi với biệt danh CR7?","Cristiano Ronaldo","Ronaldo Nazário","Ronaldinho","Roberto Carlos",0],
+["Trong bóng đá, “cú đúp” thường có nghĩa là gì?","Một cầu thủ ghi 2 bàn trong trận","2 thẻ đỏ","2 quả penalty hỏng","2 trận hòa liên tiếp",0],
+["Cầu thủ nào giành Quả bóng vàng nam năm 2023?","Lionel Messi","Erling Haaland","Kylian Mbappé","Kevin De Bruyne",0],
+["Đội tuyển nào vô địch Euro 2024?","Tây Ban Nha","Anh","Pháp","Đức",0],
+["Ai là cầu thủ nổi tiếng với biệt danh “The Pharaoh”?","Mohamed Salah","Sadio Mané","Riyad Mahrez","Achraf Hakimi",0],
+["Cầu thủ nào nổi tiếng với cú “bicycle kick” vào lưới Juventus năm 2018?","Cristiano Ronaldo","Gareth Bale","Wayne Rooney","Zlatan Ibrahimović",0]
+],
+countries:[
+["Đội tuyển quốc gia nào có biệt danh “A Seleção”?","Brazil","Argentina","Portugal","Uruguay",0],
+["Đội tuyển nào có biệt danh “Les Bleus”?","Pháp","Bỉ","Thụy Sĩ","Croatia",0],
+["Đội tuyển nào nổi tiếng với màu áo cam?","Hà Lan","Đan Mạch","Thụy Điển","Áo",0],
+["“La Albiceleste” là biệt danh của đội tuyển nào?","Argentina","Brazil","Chile","Colombia",0],
+["Đội tuyển nào vô địch Euro 2016?","Bồ Đào Nha","Pháp","Đức","Italy",0],
+["Đội tuyển quốc gia nào có biệt danh “Azzurri”?","Italy","Tây Ban Nha","Hy Lạp","Thổ Nhĩ Kỳ",0]
+],
+speed:[
+["Một quả penalty được thực hiện từ chấm cách khung thành bao xa?","11 m","9 m","7 m","13 m",0],
+["Có bao nhiêu phút trong một hiệp chính tiêu chuẩn?","45","40","50","30",0],
+["Thẻ vàng thể hiện điều gì?","Cảnh cáo","Cầu thủ ghi bàn","Thay người","Trận đấu kết thúc",0],
+["Ai thường mặc áo số 1 trong đội?","Thủ môn","Tiền đạo","Trọng tài","Đội trưởng bắt buộc",0],
+["Bóng đi hết đường biên dọc thì thường bắt đầu lại bằng gì?","Ném biên","Phạt góc","Phạt đền","Giao bóng",0],
+["Một đội có bao nhiêu cầu thủ trên sân trong trận đấu thông thường?","11","10","9","12",0],
+["Chung kết World Cup nam 2022 có hai đội nào?","Argentina và Pháp","Brazil và Đức","Pháp và Croatia","Argentina và Hà Lan",0],
+["Từ “hat-trick” trong bóng đá nghĩa là gì?","Ghi 3 bàn trong trận","3 pha kiến tạo","3 trận thắng","3 thẻ vàng",0],
+["Trọng tài sử dụng còi để làm gì?","Điều khiển trận đấu","Đo tốc độ bóng","Ghi bàn","Thay cầu thủ",0],
+["VAR hỗ trợ trọng tài bằng cách nào?","Xem lại video tình huống","Đo nhịp tim","Đếm khán giả","Thay trọng tài chính",0]
+],
+transfers:[
+["Lionel Messi gia nhập Inter Miami năm 2023 sau khi rời đội nào?","Paris Saint-Germain","Barcelona","Manchester City","Juventus",0],
+["Cristiano Ronaldo gia nhập Al Nassr vào cuối năm 2022 sau khi rời đội nào?","Manchester United","Real Madrid","Juventus","Sporting CP",0],
+["Neymar gia nhập PSG từ Barcelona vào năm nào?","2017","2019","2015","2021",0],
+["Jude Bellingham gia nhập Real Madrid từ CLB nào năm 2023?","Borussia Dortmund","Bayern Munich","Chelsea","Ajax",0],
+["Erling Haaland gia nhập Manchester City từ CLB nào năm 2022?","Borussia Dortmund","Liverpool","RB Leipzig","PSG",0],
+["Harry Kane gia nhập Bayern Munich từ CLB nào năm 2023?","Tottenham Hotspur","Arsenal","Chelsea","Everton",0]
+],
+tactics:[
+["Sơ đồ 4-3-3 có bao nhiêu hậu vệ theo cách gọi thông thường?","4","3","5","2",0],
+["Vị trí nào thường được gọi là “số 9”?","Tiền đạo trung tâm","Thủ môn","Hậu vệ trái","Tiền vệ phòng ngự",0],
+["Nhiệm vụ chính của thủ môn là gì?","Ngăn bóng vào lưới","Thực hiện mọi quả ném biên","Chỉ ghi bàn","Điều khiển VAR",0],
+["Pressing trong bóng đá thường có nghĩa là gì?","Gây áp lực để giành lại bóng","Đứng yên phòng ngự","Đá phạt đền","Chuyền bóng ra ngoài",0],
+["Hậu vệ biên thường hoạt động ở khu vực nào?","Hai hành lang cánh","Chỉ vòng tròn giữa sân","Khu kỹ thuật","Khán đài",0],
+["Một tiền vệ phòng ngự thường hỗ trợ điều gì?","Che chắn hàng thủ và thu hồi bóng","Bắt việt vị bằng còi","Chỉ đứng trong vòng cấm đối thủ","Bắt bóng bằng tay",0]
+],
+daily:[
+["Đội nào vô địch World Cup nam 2010?","Tây Ban Nha","Hà Lan","Đức","Brazil",0],
+["Cầu thủ nào nổi tiếng với biệt danh “Ibracadabra”?","Zlatan Ibrahimović","Thierry Henry","Didier Drogba","Wayne Rooney",0],
+["CLB nào có biệt danh “The Blues” tại London?","Chelsea","Arsenal","Fulham","West Ham",0],
+["Một trận hòa 1-1 có tổng cộng bao nhiêu bàn thắng?","2","1","3","0",0],
+["Đội tuyển nào vô địch Copa América 2021?","Argentina","Brazil","Uruguay","Chile",0],
+["Ai là cầu thủ được biết đến với biệt danh “Ninja Turtle”?","Kylian Mbappé","Neymar","Lionel Messi","Antoine Griezmann",0],
+["Sân nhà của Borussia Dortmund có tên gì?","Signal Iduna Park","Allianz Arena","San Siro","Stamford Bridge",0],
+["Đội tuyển nào vô địch Euro 2020 (giải tổ chức năm 2021)?","Italy","Anh","Bồ Đào Nha","Tây Ban Nha",0]
+],
+odd:[
+["Chọn đội tuyển quốc gia, không phải CLB.","Argentina","Real Madrid","Liverpool","Bayern Munich",0],
+["Chọn giải đấu đội tuyển quốc gia.","FIFA World Cup","Premier League","La Liga","Bundesliga",0],
+["Chọn vị trí không phải vị trí cầu thủ trên sân.","Trọng tài VAR","Thủ môn","Tiền vệ","Hậu vệ",0],
+["Chọn sân vận động ở Anh.","Old Trafford","San Siro","Santiago Bernabéu","Allianz Arena",0],
+["Chọn cầu thủ từng đại diện Argentina ở cấp đội tuyển.","Lionel Messi","Cristiano Ronaldo","Kylian Mbappé","Luka Modrić",0],
+["Chọn câu lạc bộ của Italy.","Juventus","Arsenal","Ajax","Benfica",0]
+]
+};
+const TRANSFER_Q=Q.transfers;
+let lang=localStorage.getItem("fv_lang")||"vi", player=localStorage.getItem("fv_player")||"Player", history=JSON.parse(localStorage.getItem("fv_history")||"[]"), played=Number(localStorage.getItem("fv_played")||0), best=Number(localStorage.getItem("fv_best")||0);
+let currentGame=null, questions=[], qIndex=0, score=0, locked=false, penaltyAttempts=0;
+const $=s=>document.querySelector(s);
+function t(key){return I18N[lang][key]||key}
+function tx(obj){return obj[lang]||obj.vi||obj}
+function save(){localStorage.setItem("fv_lang",lang);localStorage.setItem("fv_player",player);localStorage.setItem("fv_history",JSON.stringify(history));localStorage.setItem("fv_played",played);localStorage.setItem("fv_best",best)}
+function setLang(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=t(el.dataset.i18n));document.querySelectorAll("[data-i18n-html]").forEach(el=>el.innerHTML=t(el.dataset.i18nHtml));$("#langBtn").textContent=lang==="vi"?"VI / EN":"EN / VI";renderGames();renderStats();renderLeaderboard();$("#playerName").value=player==="Player"?"":player;$("#navName").textContent=player;$("#avatar").textContent=(player[0]||"P").toUpperCase()}
+function renderGames(filter="all"){const grid=$("#gamesGrid");grid.innerHTML="";games.filter(g=>filter==="all"||g.cat===filter).forEach(g=>{const b=document.createElement("button");b.className="game-card";b.innerHTML=`<div class="game-top"><span class="game-icon">${g.icon}</span><span class="tag">${tx(g.tag)}</span></div><h3>${tx(g.title)}</h3><p>${tx(g.desc)}</p><div class="playline"><span>${t("play")}</span><span>↗</span></div>`;b.addEventListener("click",()=>startGame(g.id));grid.appendChild(b)})}
+function renderStats(){$("#playedStat").textContent=played;$("#bestStat").textContent=best}
+function renderLeaderboard(){const el=$("#leaderboard");if(!history.length){el.innerHTML=`<div class="empty">${t("noScores")}</div>`;return}const top=[...history].sort((a,b)=>b.score-a.score).slice(0,5);el.innerHTML=top.map((x,i)=>`<div class="score-row"><div class="rank">${i+1}</div><div class="who">${esc(x.name)}<small>${esc(x.game)} · ${new Date(x.date).toLocaleDateString(lang==="vi"?"vi-VN":"en-US")}</small></div><div class="score">${x.score} ${t("points")}</div></div>`).join("")}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function normalize(raw,kind){let q=raw.slice();if(kind==="truefalse"){return {question:q[0],answers:lang==="vi"?["Đúng","Sai"]:["True","False"],correct:q[3]??0,hint:""}}return {question:q[0],answers:q.slice(1,5),correct:q[5]??0}}
+function startGame(id){currentGame=games.find(g=>g.id===id);score=0;qIndex=0;locked=false;penaltyAttempts=0;
+ if(id==="penalty"){openModal();renderPenalty();return}
+ let source=Q[id]||Q.quiz;
+ questions=shuffle(source).slice(0,id==="speed"||id==="daily"?10:6).map(raw=>normalize(raw,id));
+ openModal();renderQuestion();
+}
+function openModal(){$("#gameModal").classList.add("open");document.body.style.overflow="hidden";$("#modalIcon").textContent=currentGame.icon;$("#modalGameTitle").textContent=tx(currentGame.title);$("#modalCategory").textContent=tx(currentGame.tag)}
+function closeModal(){$("#gameModal").classList.remove("open");document.body.style.overflow=""}
+function renderQuestion(){locked=false;const q=questions[qIndex];if(!q){finishGame();return}
+ const body=$("#gameBody");const trueFalse=currentGame.kind==="truefalse"||currentGame.kind==="transfers";
+ body.innerHTML=`<div class="game-meta"><span>${t("question")} ${qIndex+1} ${t("of")} ${questions.length}</span><span>${score} ${t("points")}</span></div><div class="progress"><span style="width:${qIndex/questions.length*100}%"></span></div><h3 class="question">${esc(q.question)}</h3><p class="question-hint">${t("hint")}</p><div class="answers">${q.answers.map((a,i)=>`<button class="answer" data-answer="${i}">${String.fromCharCode(65+i)}. ${esc(a)}</button>`).join("")}</div><div class="feedback" id="feedback" aria-live="polite"></div><div class="game-controls"><span style="font-size:12px;color:var(--muted)">⚡ +100 ${t("points")}</span><button class="primary-btn" id="nextQ" disabled>${qIndex===questions.length-1?t("finish"):t("next")}</button></div>`;
+ body.querySelectorAll("[data-answer]").forEach(b=>b.addEventListener("click",()=>chooseAnswer(Number(b.dataset.answer))));
+ $("#nextQ").addEventListener("click",()=>{qIndex++;renderQuestion()});
+}
+function chooseAnswer(i){if(locked)return;locked=true;const q=questions[qIndex],buttons=[...$("#gameBody").querySelectorAll("[data-answer]")];buttons.forEach(b=>b.disabled=true);buttons[q.correct].classList.add("correct");const fb=$("#feedback");if(i===q.correct){score+=100;fb.textContent=t("correct");fb.className="feedback good"}else{buttons[i].classList.add("wrong");fb.textContent=t("wrong");fb.className="feedback bad"}$("#gameBody .game-meta span:last-child").textContent=score+" "+t("points");$("#nextQ").disabled=false}
+function renderPenalty(){const body=$("#gameBody");body.innerHTML=`<div class="game-meta"><span>${lang==="vi"?"LƯỢT SÚT":"SHOTS"} ${penaltyAttempts+1}/5</span><span>${score} ${t("points")}</span></div><div class="progress"><span style="width:${penaltyAttempts/5*100}%"></span></div><h3 class="question">${lang==="vi"?"Đặt bóng lên chấm phạt đền. Em sẽ sút vào góc nào?":"Place the ball on the spot. Which corner will you shoot for?"}</h3><p class="question-hint">${t("penaltyHint")}</p><div class="answers"><button class="answer" data-shot="0">↖ ${lang==="vi"?"Góc cao trái":"Top left"}</button><button class="answer" data-shot="1">↗ ${lang==="vi"?"Góc cao phải":"Top right"}</button><button class="answer" data-shot="2">↙ ${lang==="vi"?"Góc thấp trái":"Bottom left"}</button><button class="answer" data-shot="3">↘ ${lang==="vi"?"Góc thấp phải":"Bottom right"}</button></div><div class="feedback" id="feedback"></div><div class="game-controls"><span style="font-size:12px;color:var(--muted)">${lang==="vi"?"Mỗi bàn thắng":"Each goal"} +100 ${t("points")}</span><button class="primary-btn" id="nextShot" disabled>${penaltyAttempts===4?t("finish"):t("next")}</button></div>`;
+ body.querySelectorAll("[data-shot]").forEach(b=>b.addEventListener("click",()=>{if(locked)return;locked=true;const keeper=Math.floor(Math.random()*4),goal=Number(b.dataset.shot)!==keeper;body.querySelectorAll("[data-shot]").forEach(x=>x.disabled=true);const fb=$("#feedback");if(goal){score+=100;b.classList.add("correct");fb.textContent=t("penaltyGoal");fb.className="feedback good"}else{b.classList.add("wrong");fb.textContent=t("penaltySave");fb.className="feedback bad"}$("#gameBody .game-meta span:last-child").textContent=score+" "+t("points");$("#nextShot").disabled=false}));
+ $("#nextShot").addEventListener("click",()=>{penaltyAttempts++;if(penaltyAttempts>=5)finishGame();else{locked=false;renderPenalty()}});
+}
+function finishGame(){played++;const isBest=score>best;if(isBest)best=score;history.push({name:player,game:tx(currentGame.title),score,date:new Date().toISOString()});history=history.slice(-60);save();renderStats();renderLeaderboard();const body=$("#gameBody");body.innerHTML=`<div class="result"><div class="result-emoji">${score>=400?"🏆":score>=200?"⚽":"💪"}</div><p style="margin:0">${t("result")}</p><h2>${tx(currentGame.title)}</h2><div class="result-score">${score}</div><p>${t("points")} · ${t("resultLine")}</p>${isBest?`<p style="color:var(--green);font-weight:900">✨ ${t("best")}</p>`:""}<p style="font-size:12px">${t("already")}</p><div class="result-actions"><button class="primary-btn" id="playAgain">${t("again")}</button><button class="secondary-btn" id="backGames">${t("back")}</button></div></div>`;$("#playAgain").addEventListener("click",()=>startGame(currentGame.id));$("#backGames").addEventListener("click",closeModal)}
+$("#langBtn").addEventListener("click",()=>{lang=lang==="vi"?"en":"vi";save();setLang()});
+$("#startBtn").addEventListener("click",()=>startGame("quiz"));$("#scrollGames").addEventListener("click",()=>$("#gamesSection").scrollIntoView({behavior:"smooth"}));
+$("#filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{$("#filters").querySelectorAll("button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderGames(b.dataset.filter)}));
+$("#saveName").addEventListener("click",()=>{const val=$("#playerName").value.trim();if(val)player=val.slice(0,20);save();setLang();const b=$("#saveName");b.textContent=t("nameSaved");setTimeout(()=>b.textContent=t("save"),1500)});
+$("#closeModal").addEventListener("click",closeModal);$("#gameModal").addEventListener("click",e=>{if(e.target===$("#gameModal"))closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+setLang();
+</script>
+</body>
+</html>
